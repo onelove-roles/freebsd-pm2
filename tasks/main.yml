@@ -1,0 +1,35 @@
+- name: install pm2-deploy packages
+  with_items: "{{ pm2_deploy_packages }}"
+  package:
+    name: "{{ item.name }}"
+    state: latest
+
+- name: create base for deployment
+  file:
+    path: "{{ pm2_deploy_base }}"
+    state: directory
+
+- name: clone deployment repo
+  git:
+    repo: "{{ pm2_deploy_repo }}"
+    dest: "{{ pm2_deploy_path }}"
+
+- name: install npm packages
+  npm:
+    path: "{{ pm2_deploy_path }}"
+
+- name: setup pm2 service
+  template:
+    src: pm2.rc.j2
+    dest: /usr/local/etc/rc.d/pm2
+    owner: root
+    group: wheel
+    mode: 0755
+
+- name: enable pm2 service
+  template:
+    src: pm2.j2
+    dest: /etc/rc.conf.d/pm2
+    owner: root
+    group: wheel
+    mode: 0644

@@ -1,0 +1,6 @@
+pm2_deploy_repo: https://github.com/freenit-framework/pm2
+pm2_deploy_base: /usr/local/repos
+pm2_deploy_path: "{{ pm2_deploy_base }}/deploy"
+
+pm2_deploy_packages:
+  - name: git-lite
