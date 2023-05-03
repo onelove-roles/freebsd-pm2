@@ -33,3 +33,11 @@
     owner: root
     group: wheel
     mode: 0644
+
+- name: create deployment dir
+  file:
+    path: "{{ pm2_deploy_path }}/build"
+    owner: provision
+    group: provision
+    mode: 0755
+    state: directory
