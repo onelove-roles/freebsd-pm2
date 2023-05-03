@@ -15,6 +15,7 @@ rcvar="pm2_enable"
 
 : ${pm2_project_root:="{{ pm2_deploy_path }}"}
 : ${pm2_user:="provision"}
+: ${pm2_host:="::"}
 
 pidfile="/var/run/${name}.pid"
 start_precmd=${name}_prestart
@@ -24,6 +25,7 @@ procname="node"
 pm2_prestart()
 {
   export HOME=/tmp
+  export HOST="{pm2_host}"
   export PATH=${PATH}:/usr/local/sbin:/usr/local/bin
 }
 
@@ -31,7 +33,7 @@ pm2_start()
 {
   echo -n "Starting ${name} ... "
   cd "${pm2_project_root}"
-  /usr/sbin/daemon -u "${pm2_user}" -p "${pidfile}" -S %%PREFIX%%/bin/yarn run start
+  /usr/sbin/daemon -u "${pm2_user}" -p "${pidfile}" -S /usr/local/bin/yarn run start
   status=$?
   if [ "${status}" = "0" ]; then
     echo "done"
