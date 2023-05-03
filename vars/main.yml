@@ -4,3 +4,4 @@ pm2_deploy_path: "{{ pm2_deploy_base }}/deploy"
 
 pm2_deploy_packages:
   - name: git-lite
+  - name: rsync
