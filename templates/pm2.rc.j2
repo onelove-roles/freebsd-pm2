@@ -12,9 +12,9 @@
 name="pm2"
 desc="PM2 deployment daemon"
 rcvar="pm2_enable"
-command="/sbin/${name}"
 
 : ${pm2_project_root:="{{ pm2_deploy_path }}"}
+: ${pm2_user:="provision"}
 
 pidfile="/var/run/${name}.pid"
 start_precmd=${name}_prestart
@@ -31,7 +31,7 @@ pm2_start()
 {
   echo -n "Starting ${name} ... "
   cd "${pm2_project_root}"
-  /usr/sbin/daemon -p "${pidfile}" -S /usr/local/bin/npm run start
+  /usr/sbin/daemon -u "${pm2_user}" -p "${pidfile}" -S /usr/local/bin/npm run start
   status=$?
   if [ "${status}" = "0" ]; then
     echo "done"
