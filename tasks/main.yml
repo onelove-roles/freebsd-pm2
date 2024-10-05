@@ -15,7 +15,7 @@
     dest: "{{ pm2_deploy_path }}"
 
 - name: install npm packages
-  yarn:
+  npm:
     path: "{{ pm2_deploy_path }}"
 
 - name: setup pm2 service
