@@ -32,7 +32,7 @@ pm2_start()
 {
   echo -n "Starting ${name} ... "
   cd "${pm2_project_root}"
-  /usr/sbin/daemon -u "${pm2_user}" -p "${pidfile}" -S /usr/local/bin/yarn run start
+  /usr/sbin/daemon -u "${pm2_user}" -p "${pidfile}" -S /usr/local/bin/npm start
   status=$?
   if [ "${status}" = "0" ]; then
     echo "done"

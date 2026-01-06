@@ -7,12 +7,17 @@
 - name: create base for deployment
   file:
     path: "{{ pm2_deploy_base }}"
+    owner: www
+    group: www
+    recurse: true
+    mode: 0755
     state: directory
 
 - name: clone deployment repo
   git:
     repo: "{{ pm2_deploy_repo }}"
     dest: "{{ pm2_deploy_path }}"
+    update: no
 
 - name: install npm packages
   npm:
